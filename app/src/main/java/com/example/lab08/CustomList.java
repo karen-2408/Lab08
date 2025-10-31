@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomList {
-    private List<City> cities;
 
-    public CustomList() {
-        this.cities = new ArrayList<>();
-    }
+    private final List<City> cities = new ArrayList<>();
 
     public void addCity(City city) {
+        if (city == null) {
+            throw new IllegalArgumentException("city is null");
+        }
         cities.add(city);
     }
 
@@ -18,7 +18,19 @@ public class CustomList {
         return cities.contains(city);
     }
 
+    public void deleteCity(City city) {
+        boolean removed = cities.remove(city);
+        if (!removed) {
+            throw new IllegalArgumentException("City not in list");
+        }
+    }
 
-    // Will be implemented later using TDD (leave blank for now)
-    // public boolean hasCity(City city) { ... }
+    public int countCities() {
+        return cities.size();
+    }
+
+
+    public List<City> getCities() {
+        return new ArrayList<>(cities);
+    }
 }
